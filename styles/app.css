@@ -1,0 +1,451 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* NAVBAR */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(1, 1, 1, 0.02);
+    width: 100%;
+    height: 3rem;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: auto;
+    padding: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    height: 98%;
+    position: relative;
+}
+
+nav ul img {
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    filter: invert(60%) sepia(17%) saturate(3880%) hue-rotate(346deg) brightness(100%) contrast(101%);
+}
+
+nav ul .noUser {
+    position: absolute;
+    left: -25rem;
+}
+
+nav ul li {
+    float: left;
+    height: 100%;
+    float: left;
+    height: 100%;
+    text-align: center;
+    text-decoration: none;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1.25rem;
+    margin: 0px 0rem;
+    font-weight: 100;
+    transition: .55s;
+}
+
+nav ul li a {
+    display: block;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 2.25rem;
+    margin: 0 3rem;
+    color: #0f2862;
+    font-weight: 100;
+    transition: .2s;
+}
+
+nav ul li a:hover:not(.activePage) {
+    color: #FF851B;
+}
+
+.activePage {
+    color: #FF851B;
+}
+
+/* MAP */
+#map_properties {
+    position: fixed;
+    top: 6rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    height: calc(100vh - 6rem);
+    overflow: hidden;
+}
+
+#map {
+    width: 100%;
+}
+
+.mapInfoPropertyImage {
+    max-width: 100%;
+    height: 46px;
+    width: 46px;
+    margin-right: 5px;
+    border: 0;
+}
+
+.mapInfoPropertyDetails {
+    float: right;
+    padding-left: 5px;
+}
+
+a[href^="http://maps.google.com/maps"] {
+    display: none !important
+}
+
+a[href^="https://maps.google.com/maps"] {
+    display: none !important
+}
+
+.gmnoprint a,
+.gmnoprint span,
+.gm-style-cc {
+    display: none;
+}
+
+.gmnoprint div {
+    background: none !important;
+}
+
+/* HIDE INFOVIEW CLOSE BUTTON */
+.gm-ui-hover-effect {
+    display: none !important;
+}
+
+/* TOP SEARCH BAR AND PROPERTY ADD */
+
+#searchBar_addProperty {
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    top: 3rem;
+    width: 100%;
+    height: 3rem;
+}
+
+#searchBar,
+#addProperty {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+#search_input {
+    height: 2rem;
+    width: 29vw;
+    border-radius: 4px;
+    outline: none;
+    border: 1px solid darkgrey;
+    margin-left: .25rem;
+    padding-left: .65rem;
+    color: #FF851B;
+    position: relative;
+}
+
+#results {
+    position: absolute;
+    top: 2.5rem;
+    width: 29vw;
+    height: auto;
+    background: #eee;
+    margin-left: 0;
+    max-height: 13rem;
+    overflow-y: scroll;
+    left: 3px;
+}
+
+.result {
+    padding: .7rem;
+    color: #FF851B;
+    box-shadow: 0px 0px 2px 0px rgba(209, 209, 209, 1);
+    cursor: pointer;
+}
+
+#seeAllProperties,
+#seeYourProperties {
+    cursor: pointer;
+    padding: 0 1.5rem;
+    color: #FF851B;
+}
+
+#seeAllProperties:hover,
+#seeYourProperties:hover {
+    text-decoration: underline;
+}
+
+
+/* YOUR PROPERTIES SECTION */
+
+.manageProperty {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.editPrice,
+.deleteProperty,
+.editImage {
+    margin: 0.6rem 0;
+    cursor: pointer;
+    text-decoration: none;
+    color: #0f2862;
+}
+
+.editPrice:hover,
+.deleteProperty:hover,
+.editImage:hover {
+    text-decoration: underline;
+}
+
+.editableInput {
+    width: 80%;
+    background: rgb(251, 245, 237);
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    margin: 0;
+    outline: 0;
+    padding: 5px;
+    padding-left: 10px;
+    color: #FF851B;
+    border: 1px solid;
+    height: 1.8rem;
+}
+
+.editProperty {
+    width: 15%;
+    background: #0f2862;
+    color: white;
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.editBar {
+    display: none;
+}
+
+.editPropertyForm {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 1%;
+    width: 98%;
+    left: 1%;
+    right: 1%;
+}
+
+
+
+/* ADD PROPERTY BUTTON */
+
+#addProperty button {
+    background: #FF851B;
+    color: #fff;
+    border: none;
+    position: relative;
+    height: 70%;
+    font-size: 1rem;
+    padding: 0 2em;
+    cursor: pointer;
+    transition: 800ms ease all;
+    outline: none;
+}
+
+#addProperty button:hover {
+    background: #fff;
+    color: #FF851B;
+}
+
+#addProperty button:before,
+#addProperty button:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 2px;
+    width: 0;
+    background: #FF851B;
+    transition: 400ms ease all;
+}
+
+#addProperty button:after {
+    right: inherit;
+    top: inherit;
+    left: 0;
+    bottom: 0;
+}
+
+#addProperty button:hover:before,
+#addProperty button:hover:after {
+    width: 100%;
+    transition: 800ms ease all;
+}
+
+::-webkit-input-placeholder {
+    /* Edge */
+    color: rgba(255, 133, 27, .7);
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: rgba(255, 133, 27, .7);
+}
+
+input::placeholder {
+    color: rgba(255, 133, 27, .7);
+}
+
+/* PROPERTIES LIST */
+#properties {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: max-content;
+    overflow-y: scroll;
+    box-sizing: content-box;
+}
+
+/* SINGLE PROPERTY */
+.property {
+    height: 19.5rem;
+    font-size: 14px;
+    margin: 7px 7px;
+    margin-top: 0;
+    color: #0f2862;
+    transition: 0.2;
+    max-height: 21rem;
+    position: relative;
+}
+
+.property:nth-child(2n) {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.property:hover {
+    color: #FF851B;
+}
+
+.property img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    max-height: 220px;
+}
+
+.price {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.active {
+    box-shadow: 0 2px 20px -2px #DCDCDC;
+    color: #FF851B !important;
+}
+
+.firstRow {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.details {
+    display: inline-flex;
+    font-size: 14px;
+    position: absolute;
+    right: 0;
+    bottom: 25%;
+}
+
+.bath::before {
+    content: " | ";
+}
+
+.bath::after {
+    content: " | ";
+}
+
+.address {
+    font-size: 14px;
+    width: 80%;
+}
+
+/* DROPDOWN PROFILE */
+
+.logoutButton {
+    position: absolute;
+    font-size: 1.5rem;
+    color: #FF851B;
+    text-decoration: none;
+    right: 2rem;
+    margin: 0 auto;
+}
+
+/* OTHERS */
+
+::-webkit-scrollbar {
+    width: 0.25rem;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #9faec0;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #54b0de;
+}
+
+#properties::-webkit-scrollbar {
+    width: 0px;
+    /* Remove scrollbar space */
+    background: transparent;
+    /* Optional: just make scrollbar invisible */
+}
+
+.show {
+    display: block;
+}
+
+.expand {
+    height: 23.5rem;
+}
+
+/* MEDIA */
+@media only screen and (max-width: 1175px) {
+    #properties {
+        display: block;
+    }
+}
