@@ -1,6 +1,7 @@
 let infoWindows = [];
 let markers = [];
 let map;
+let curentMarker = null;
 
 $(document).ready(() => {
     $.getScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyAfd0obzUPQmGHd8hqzhQs1UlMFnG8J1gY&callback=init")
@@ -36,6 +37,7 @@ function getAllProperties() {
             </div>
         </div>
         <div class="address">${propertyObject.zipCode} ${propertyObject.address}</div>
+        <div class="house_agent">Agent: ${propertyObject.owner}</div>
     </div>`);
             });
 
@@ -119,6 +121,28 @@ function initMap(properties) {
 
     let marker, i;
 
+    $.ajax({
+            url: "./apis/api-get-user-details.php",
+            method: "GET",
+            dataType: "JSON"
+        })
+        .done(response => {
+            // console.log(response);
+            if (response.status == 1) {
+                if (response.user.currentHouseLat && response.user.currentHouseLong) {
+                    var locationUser = new google.maps.LatLng(response.user.currentHouseLong, response.user.currentHouseLat);
+                    marker = new google.maps.Marker({
+                        position: locationUser,
+                        map: map,
+                        icon: './images/house.svg',
+                        animation: google.maps.Animation.DROP
+                    });
+                    markers.push(marker);
+                }
+            }
+        }).fail(err => {
+            console.log(err);
+        });
 
     for (i = 0; i < propertiesLength; i++) {
 
@@ -130,7 +154,6 @@ function initMap(properties) {
         });
 
         markers.push(marker);
-
 
         google.maps.event.addListener(marker, 'click', (function (marker, i) {
             return function () {

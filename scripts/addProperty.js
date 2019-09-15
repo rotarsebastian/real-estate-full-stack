@@ -1,11 +1,13 @@
-let curentMarker = null;
-
 $(document).on('click', '#addNewProperty', function () {
     $('#properties').empty();
 
     closeAllMarkers();
 
-    curentMarker = null;
+    if (curentMarker != null) {
+        curentMarker.setMap(null);
+        curentMarker = null;
+    }
+
 
     $('#properties').css('grid-template-columns', '1fr');
 
@@ -47,13 +49,13 @@ $(document).on('click', '#addNewProperty', function () {
         </fieldset>
         <fieldset>
         <legend><span class="number">2</span> Upload Image *</legend>
-        <input type="file" name="image" id="imageInput">
+        <input type="file" name="image" data-type="image" id="imageInput" accept="image/x-png,image/gif,image/jpeg">
         </fieldset>
         <fieldset>
-        <legend><span class="number">3</span> Pick your address on the map *</legend>
+        <legend class="set_marker_on_map"><span class="number">3</span> Pick your address on the map *</legend>
         </fieldset>
-        <div id="infoMessage">You must upload an image (.png, .jpg, .jpeg) and put your marker on the map</div>
-        <button id="uploadPropertyButton" type="submit" onclick="addProperty(this); return false" data-start="Upload Property"
+        <div class="infoMessage">You must upload an image (.png, .jpg, .jpeg) and put your marker on the map</div>
+        <button class="formActionButton" type="submit" onclick="addProperty(this); return false" data-start="Upload Property"
         data-wait="WAIT ...">Upload Property</button>
         </form>
         </div>`);
@@ -92,7 +94,9 @@ $(document).on('click', '#addNewProperty', function () {
         if (curentMarker == null) {
             curentMarker = new google.maps.Marker({
                 position: location,
-                map: map
+                map: map,
+                icon: './images/house.svg',
+                animation: google.maps.Animation.BOUNCE
             });
         } else {
             curentMarker.setPosition(location);
@@ -110,20 +114,10 @@ function addProperty(oBtn) {
     }
 
     if (!curentMarker) {
-
+        document.querySelector('.set_marker_on_map').classList.add('errorText');
         return
-    }
-
-    if ($('#imageInput').get(0).files.length === 0) {
-        return;
-    }
-
-    var file = document.getElementById('imageInput').files[0];
-    var fileType = file["type"];
-    var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
-
-    if ($.inArray(fileType, validImageTypes) < 0) {
-        return
+    } else {
+        document.querySelector('.set_marker_on_map').classList.remove('errorText');
     }
 
     oBtn.innerText = oBtn.getAttribute('data-wait')
@@ -143,18 +137,19 @@ function addProperty(oBtn) {
             dataType: "JSON"
         })
         .done(response => {
+            console.log(response);
             if (response.status == 1) {
                 oBtn.innerText = oBtn.getAttribute('data-start');
                 oBtn.disabled = false;
                 fvDo(frmAddProperty.querySelectorAll('input'), function (oElement) {
                     oElement.value = ''
                 });
-                document.querySelector('#infoMessage').innerText = 'Success! Your house has been posted!';
-                document.querySelector('#infoMessage').style.color = '#a5ec37';
+                document.querySelector('.infoMessage').innerText = 'Success! Your house has been posted!';
+                document.querySelector('.infoMessage').style.color = '#a5ec37';
                 setTimeout(function () {
-                    if (document.querySelector('#infoMessage')) {
-                        document.querySelector('#infoMessage').innerText = 'You must upload an image (.png, .jpg, .jpeg) and put your marker on the map';
-                        document.querySelector('#infoMessage').style.color = '#FF851B';
+                    if (document.querySelector('.infoMessage')) {
+                        document.querySelector('.infoMessage').innerText = 'You must upload an image (.png, .jpg, .jpeg) and put your marker on the map';
+                        document.querySelector('.infoMessage').style.color = '#FF851B';
                     }
                 }, 3000);
             }

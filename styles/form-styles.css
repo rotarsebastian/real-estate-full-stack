@@ -126,9 +126,6 @@ input[type=number] {
     background: #f7dcdc !important;
 }
 
-#infoMessage {
-    margin: 1rem 0;
-    color: #FF851B;
-    font-weight: 500;
-    font-style: italic;
+.errorText {
+    color: red !important;
 }

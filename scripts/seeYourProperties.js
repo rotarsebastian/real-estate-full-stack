@@ -1,3 +1,4 @@
+let currentPropertyID;
 $(document).on('click', '#seeYourProperties', function () {
     $('#properties').empty();
     $('#properties').css('grid-template-columns', '1fr 1fr');
@@ -7,6 +8,9 @@ $(document).on('click', '#seeYourProperties', function () {
         })
         .done((data) => {
             properties = JSON.parse(data);
+            if ($.isEmptyObject(properties)) {
+                $('#properties').append('<div class="noProperties">You have no properties</div>');
+            }
             $.each(properties, (propertyID, propertyObject) => {
                 $('#properties').append(`
         <div id="${propertyID}" class="property">
@@ -23,7 +27,7 @@ $(document).on('click', '#seeYourProperties', function () {
         <div class="manageProperty">
                 <div class="editPrice">Edit price</div>
                 <div class="editImage">Change Image</div>
-                <div class="deleteProperty">Delete</div>
+                <div class="deleteProperty"><a href="#ex1" class="deletePropertyButton" data-id="${propertyID}" rel="modal:open">Delete</a></div>
                 
         </div>
         <div class="editBar">
@@ -31,6 +35,13 @@ $(document).on('click', '#seeYourProperties', function () {
             <input class="editableInput" name="data" type="text" maxlength="12" accept="image/x-png,image/gif,image/jpeg">
             <button class="editProperty" type="button">Change</button>
         </form>
+        </div>
+        <div id="ex1" class="modal">
+            <div class="modalQuestion">Are you sure you want to delete this property?</div>
+            <div class="answersModal">
+                <a class="noButton" rel="modal:close">No</a>
+                <a class="deletePropertyForever" rel="modal:close">Yes</a>
+            </div>
         </div>
     </div>`);
             });
@@ -61,6 +72,48 @@ $(document).on("click", ".editPrice", function (e) {
     $(this).parent().siblings('.editBar').children().get()[0].firstElementChild.value = oldPrice;
 });
 
+$(document).on("click", ".deletePropertyButton", function (e) {
+    currentPropertyID = null;
+    $(".property").removeClass("expand");
+    $(".editBar").removeClass("show");
+    $("input.error").removeClass("error");
+    // console.log($(this).data('id'));
+    currentPropertyID = $(this).data('id').toString();
+});
+
+
+$(document).on("click", ".deletePropertyForever", function () {
+    $(".property").removeClass("expand");
+    $(".editBar").removeClass("show");
+    $("input.error").removeClass("error");
+
+    let propertyID = currentPropertyID;
+
+    $.ajax({
+            url: './apis/api-delete-property.php',
+            method: "POST",
+            data: {
+                propertyID: propertyID
+            },
+            dataType: "JSON"
+        })
+        .done(response => {
+            if (response.status == 1) {
+                $(".property").removeClass("expand");
+                $(".editBar").removeClass("show");
+
+                //TODO: DELETE PROPERTY MARKER ON MAP
+
+                //delete property on HTML
+                $(`#${propertyID}`).remove();
+            }
+
+        })
+        .fail(err => {
+            console.log(err);
+        });
+});
+
 $(document).on("click", ".editImage", function () {
     $(".property").removeClass("expand");
     $(".editBar").removeClass("show");
@@ -69,7 +122,6 @@ $(document).on("click", ".editImage", function () {
     $editBar = $(this).parent().siblings('.editBar').get()[0];
     $(this).closest('.property')[0].classList.toggle('expand');
     $editBar.classList.toggle('show');
-
 });
 
 
@@ -130,7 +182,6 @@ $(document).on('click', '.editProperty', function (e) {
             dataType: "JSON"
         })
         .done(response => {
-            console.log(response);
             if (response.status == 1) {
                 $(".property").removeClass("expand");
                 $(".editBar").removeClass("show");

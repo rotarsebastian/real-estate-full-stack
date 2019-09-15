@@ -19,8 +19,8 @@ nav {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: rgba(1, 1, 1, 0.02);
-    width: 100%;
+    background-color: rgba(249, 202, 97, 0.2);
+    width: 100vw;
     height: 3rem;
     display: grid;
     align-items: center;
@@ -32,29 +32,30 @@ nav ul {
     margin: auto;
     padding: 0;
     overflow: hidden;
-    width: 100%;
+    width: 100vw;
     height: 100%;
     height: 98%;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 nav ul img {
-    width: 100%;
+    width: auto;
     height: 100%;
     padding: 5px;
     filter: invert(60%) sepia(17%) saturate(3880%) hue-rotate(346deg) brightness(100%) contrast(101%);
+    cursor: pointer;
 }
 
 nav ul .noUser {
     position: absolute;
-    left: -25rem;
+
 }
 
 nav ul li {
-    float: left;
-    height: 100%;
-    float: left;
-    height: 100%;
+
     text-align: center;
     text-decoration: none;
     height: 100%;
@@ -177,7 +178,7 @@ a[href^="https://maps.google.com/maps"] {
     top: 2.5rem;
     width: 29vw;
     height: auto;
-    background: #eee;
+    background-color: #f9f9f9;
     margin-left: 0;
     max-height: 13rem;
     overflow-y: scroll;
@@ -203,12 +204,17 @@ a[href^="https://maps.google.com/maps"] {
     text-decoration: underline;
 }
 
-
 /* YOUR PROPERTIES SECTION */
 
 .manageProperty {
     display: flex;
     justify-content: space-around;
+}
+
+.noProperties {
+    color: #FF851B;
+    margin: 0 1rem;
+    font-style: italic;
 }
 
 
@@ -217,6 +223,11 @@ a[href^="https://maps.google.com/maps"] {
 .editImage {
     margin: 0.6rem 0;
     cursor: pointer;
+    text-decoration: none;
+    color: #0f2862;
+}
+
+.deletePropertyButton {
     text-decoration: none;
     color: #0f2862;
 }
@@ -264,6 +275,33 @@ a[href^="https://maps.google.com/maps"] {
     width: 98%;
     left: 1%;
     right: 1%;
+}
+
+.modalQuestion {
+    text-align: center;
+    margin: 1rem;
+    color: #0f2862;
+    font-weight: 100;
+    font-size: 1rem;
+}
+
+.answersModal {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 2rem 0;
+    margin-bottom: 1rem;
+}
+
+.answersModal a {
+    background: #FF851B;
+    padding: .4rem 3rem;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+}
+
+.noButton {
+    background: #0f2862 !important;
 }
 
 
@@ -347,6 +385,7 @@ input::placeholder {
     transition: 0.2;
     max-height: 21rem;
     position: relative;
+    cursor: pointer;
 }
 
 .property:nth-child(2n) {
@@ -402,15 +441,83 @@ input::placeholder {
     width: 80%;
 }
 
+.house_agent {
+    position: absolute;
+    bottom: 0;
+    opacity: .5;
+}
+
 /* DROPDOWN PROFILE */
 
-.logoutButton {
+.dropDownProfile {
     position: absolute;
-    font-size: 1.5rem;
-    color: #FF851B;
-    text-decoration: none;
-    right: 2rem;
+    color: #0f2862;
+    left: 2rem;
     margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.profile_img {
+    width: 2.25rem;
+    height: 2.25rem;
+    /* filter: invert(11%) sepia(42%) saturate(3631%) hue-rotate(212deg) brightness(99%) contrast(98%); */
+    border: .01rem solid #000;
+    margin: auto;
+    border-radius: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    object-fit: cover;
+}
+
+.profile_text {
+    padding: 0 .75rem;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    top: 2.75rem;
+}
+
+.dropdown-content a {
+    color: #FF851B;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1
+}
+
+.dropdown:hover .dropDownProfile {
+    color: #FF851B;
+}
+
+#deleteProfileButton {
+    color: #FF851B;
+    font-size: 15px;
+    text-align: right;
+    width: auto;
+    margin: 2rem .25rem;
+    cursor: pointer;
+    float: right;
+    outline: none;
+    border: none;
+    text-decoration: none;
+}
+
+#deleteProfileButton:hover {
+    text-decoration: underline;
 }
 
 /* OTHERS */
@@ -441,6 +548,22 @@ input::placeholder {
 
 .expand {
     height: 23.5rem;
+}
+
+.hide {
+    display: none;
+}
+
+.colorChange {
+    color: #FF851B;
+    /* filter: invert(77%) sepia(59%) saturate(5288%) hue-rotate(346deg) brightness(101%) contrast(101%); */
+}
+
+.infoMessage {
+    margin: 1rem 0;
+    color: #FF851B;
+    font-weight: 500;
+    font-style: italic;
 }
 
 /* MEDIA */

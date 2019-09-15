@@ -49,6 +49,11 @@ function fnbIsFormValid(oForm) {
                     oElement.classList.add('error')
                 }
                 break
+            case 'image':
+                if (oElement.files.length === 0) {
+                    oElement.classList.add('error')
+                }
+                break
             default:
         }
     })

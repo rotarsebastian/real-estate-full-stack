@@ -53,6 +53,7 @@ require_once(__DIR__.'/components/signup-login-top.php');
     </div>
 
 <a class="switchPages" href="./login.php">Switch to Login</a>
+<a class="switchPages" href="./home.php">Continue to the home page</a>
 
 <p>&copy; Copyright eState 2019. All rights reserved</p>
 

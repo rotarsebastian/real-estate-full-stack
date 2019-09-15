@@ -27,6 +27,7 @@ require_once(__DIR__.'/components/signup-login-top.php');
             </form>
 </div>
 <a class="switchPages" href="./signup.php">Switch to Sign Up</a>
+<a class="switchPages" href="./home.php">Continue to the home page</a>
 
 <p>&copy; Copyright eState 2019. All rights reserved</p>  
 <script src="./scripts/login.js"></script>
